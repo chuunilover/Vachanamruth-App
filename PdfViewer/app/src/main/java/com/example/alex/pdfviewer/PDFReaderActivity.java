@@ -2,7 +2,6 @@ package com.example.alex.pdfviewer;
 
 import android.os.Bundle;
 
-import net.sf.andpdf.pdfviewer.PdfViewerActivity;
 
 
 public class PDFReaderActivity extends PdfViewerActivity

@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import net.sf.andpdf.pdfviewer.PdfViewerActivity;
-
 import java.io.File;
 import java.io.FilenameFilter;
 
