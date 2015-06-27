@@ -4,4 +4,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_pdfreader">PDFReaderActivity</string>
+
+    <string-array name="chapters">
+        <item>Part 1</item>
+        <item>Part 2</item>
+        <item>Part 3</item>
+    </string-array>
 </resources>

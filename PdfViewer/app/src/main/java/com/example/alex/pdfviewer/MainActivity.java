@@ -53,7 +53,9 @@ public class MainActivity extends ListActivity {
         try
         {
             final Intent intent = new Intent(MainActivity.this, PDFReaderActivity.class);
+
             intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, path);
+
             startActivity(intent);
         }
         catch (Exception e)

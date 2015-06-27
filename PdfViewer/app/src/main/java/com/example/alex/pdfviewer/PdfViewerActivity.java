@@ -1,5 +1,6 @@
 package com.example.alex.pdfviewer;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -23,11 +24,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.sun.pdfview.PDFFile;
@@ -42,13 +45,16 @@ import net.sf.andpdf.nio.ByteBuffer;
 import net.sf.andpdf.pdfviewer.gui.FullScrollView;
 import net.sf.andpdf.refs.HardReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
+
 
 
 /**
@@ -56,6 +62,8 @@ import java.nio.channels.FileChannel;
  * @author ferenc.hechler
  */
 public abstract class PdfViewerActivity extends Activity {
+
+    public PrintStream ps;
 
     private static final int STARTPAGE = 1;
     private static final float STARTZOOM = 1.0f;
@@ -676,12 +684,21 @@ public abstract class PdfViewerActivity extends Activity {
 
             addSpace(vg, 6, 6);
 
+            Spinner navSpinner = new Spinner(context);
+            navSpinner.setLayoutParams(lpChild1);
+            ArrayAdapter chapters = ArrayAdapter.createFromResource
+                    (context, R.array.chapters,
+                            R.layout.support_simple_spinner_dropdown_item);
+            navSpinner.setAdapter(chapters);
+
             /* Search box */
 
             EditText searchBox = new EditText(context);
             searchBox.setLayoutParams(lpChild1);
             searchBox.setWidth(250);
             hl.addView(searchBox);
+
+
             /* END OF ADDED CODE */
 
             vg.addView(hl);
@@ -796,7 +813,25 @@ public abstract class PdfViewerActivity extends Activity {
             //Log.i(TAG, pageInfo);
             RectF clip = null;
             //middleTime = System.currentTimeMillis();
-            Bitmap bi = mPdfPage.getImage((int)(width*zoom), (int)(height*zoom), clip, true, true);
+            /* Modified code; original code in next line
+            *  bi = mPdfPage.getImage((int) (width * zoom), (int) (height * zoom), clip, true, true);
+            */
+            /*Read from System.out to see if "Image went away. Stopping" is printed (sign of
+                an improperly rendered image) and refreshes the pdf image until it stops)*/
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PrintStream oldOut = System.out;
+            ps = new PrintStream(baos);
+            System.setOut(ps);
+            String s;
+            Bitmap bi = mPdfPage.getImage((int) (width * zoom), (int) (height * zoom), clip, true, true);
+            while((s=baos.toString("UTF8")).contains("Image went away.  Stopping")) {
+                Log.i(TAG, s);
+                bi = mPdfPage.getImage((int) (width * zoom), (int) (height * zoom), clip, true, true);
+                baos.reset();
+                ps.flush();
+            }
+            System.setOut(oldOut);
+            /* ENDOf experimental code */
             mGraphView.setPageBitmap(bi);
             mGraphView.updateImage();
 
