@@ -817,7 +817,8 @@ public abstract class PdfViewerActivity extends Activity {
             *  bi = mPdfPage.getImage((int) (width * zoom), (int) (height * zoom), clip, true, true);
             */
             /*Read from System.out to see if "Image went away. Stopping" is printed (sign of
-                an improperly rendered image) and refreshes the pdf image until it stops)*/
+                an improperly rendered image) and refreshes the pdf image until it stops)
+                If you guys can make a better solution, it would be nice.*/
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream oldOut = System.out;
             ps = new PrintStream(baos);
@@ -826,9 +827,9 @@ public abstract class PdfViewerActivity extends Activity {
             Bitmap bi = mPdfPage.getImage((int) (width * zoom), (int) (height * zoom), clip, true, true);
             while((s=baos.toString("UTF8")).contains("Image went away.  Stopping")) {
                 Log.i(TAG, s);
-                bi = mPdfPage.getImage((int) (width * zoom), (int) (height * zoom), clip, true, true);
                 baos.reset();
                 ps.flush();
+                bi = mPdfPage.getImage((int) (width * zoom), (int) (height * zoom), clip, true, true);
             }
             System.setOut(oldOut);
             /* ENDOf experimental code */
