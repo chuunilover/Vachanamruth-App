@@ -23,7 +23,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -103,6 +105,8 @@ public abstract class PdfViewerActivity extends Activity {
     private float mZoom;
     private File mTmpFile;
     private ProgressDialog progress;
+    private Spinner subChaptSpinner;
+    private Spinner chaptSpinner;
 
     /*private View navigationPanel;
     private Handler closeNavigationHandler;
@@ -113,6 +117,7 @@ public abstract class PdfViewerActivity extends Activity {
 
     private Thread backgroundThread;
     private Handler uiHandler;
+
 
 
     @Override
@@ -252,7 +257,7 @@ public abstract class PdfViewerActivity extends Activity {
         if (backgroundThread != null)
             return;
 
-        mGraphView.showText("reading page "+ page+", zoom:"+zoom);
+        mGraphView.showText("reading page " + page + ", zoom:" + zoom);
         //progress = ProgressDialog.show(PdfViewerActivity.this, "Loading", "Loading PDF Page");
         backgroundThread = new Thread(new Runnable() {
             public void run() {
@@ -480,7 +485,7 @@ public abstract class PdfViewerActivity extends Activity {
         return null;
     }
 
-    private class GraphView extends FullScrollView {
+    private class GraphView extends FullScrollView implements AdapterView.OnItemSelectedListener{
         //private String mText;
         //private long fileMillis;
         //private long pageParseMillis;
@@ -511,11 +516,13 @@ public abstract class PdfViewerActivity extends Activity {
             LinearLayout vl=new LinearLayout(context);
             vl.setLayoutParams(lpWrap10);
             vl.setOrientation(LinearLayout.VERTICAL);
+            addAdditionalButtons(vl);
+            addNavButtons(vl);
 
             if (mOldGraphView == null)
                 progress = ProgressDialog.show(PdfViewerActivity.this, "Loading", "Loading PDF Page", true, true);
 
-            addNavButtons(vl);
+
             // remember page button for updates
             mBtPage2 = mBtPage;
 
@@ -583,17 +590,103 @@ public abstract class PdfViewerActivity extends Activity {
             addView(vl);
         }
 
+        /**
+         * Add buttons to ViewGroup VG that aren't part of the default PdfViewerActivity
+         * @param vg
+         */
+        private void addAdditionalButtons (ViewGroup vg){
+
+            Context context = vg.getContext();
+            LinearLayout.LayoutParams lpChild1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
+            LinearLayout.LayoutParams lpWidth400 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
+            lpWidth400.width = 350;
+            LinearLayout.LayoutParams lpHeight30 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
+            lpHeight30.height = 40;
+            LinearLayout.LayoutParams lpWrap10 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,10);
+
+
+            /* top line of widgets*/
+            LinearLayout topl=new LinearLayout(context);
+            topl.setLayoutParams(lpHeight30);
+            topl.setOrientation(LinearLayout.HORIZONTAL);
+
+            //second line of widgets
+            LinearLayout secondl = new LinearLayout(context);
+            secondl.setLayoutParams(lpWrap10);
+            topl.setOrientation(LinearLayout.HORIZONTAL);
+
+            // chapter spinner
+
+            chaptSpinner = new Spinner(context);
+            chaptSpinner.setLayoutParams(lpChild1);
+            ArrayAdapter chapters = ArrayAdapter.createFromResource
+                    (context, R.array.chapters,
+                            R.layout.support_simple_spinner_dropdown_item);
+            chaptSpinner.setAdapter(chapters);
+            topl.addView(chaptSpinner);
+
+            // subchapter spinner
+            subChaptSpinner = new Spinner(context);
+            subChaptSpinner.setLayoutParams(lpWidth400);
+            ArrayAdapter subChapts = ArrayAdapter.createFromResource
+                    (context, R.array.GadhadaI,
+                            R.layout.support_simple_spinner_dropdown_item);
+            subChaptSpinner.setAdapter(subChapts); //by default Gadhad? I sections shown
+
+            topl.addView(subChaptSpinner);
+
+            // now set subchapter spinner to change when chapter is selected
+            chaptSpinner.setOnItemSelectedListener(this);
+
+            // search button
+
+            Button bSearch = new Button(context);
+            bSearch.setLayoutParams(lpChild1);
+            bSearch.setText("Search");
+            bSearch.setWidth(60);
+            bSearch.setHeight(40);
+            bSearch.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            secondl.addView(bSearch);
+
+            addSpace(topl, 6, 6);
+
+            /* Search box */
+
+            EditText searchBox = new EditText(context);
+            searchBox.setLayoutParams(lpWrap10);
+            searchBox.setWidth(500);
+            searchBox.setMaxLines(1);
+            secondl.addView(searchBox);
+            //Hide keyboard, si
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
+            //Add new lines of widgets in order from top to bottom
+
+            vg.addView(secondl); //text search
+            vg.addView(topl); //chapter search
+        }
+
+
         private void addNavButtons(ViewGroup vg) {
 
             addSpace(vg, 6, 6);
 
             LinearLayout.LayoutParams lpChild1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
             LinearLayout.LayoutParams lpWrap10 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,10);
+            lpWrap10.height = 80;
 
             Context context = vg.getContext();
             LinearLayout hl=new LinearLayout(context);
             hl.setLayoutParams(lpWrap10);
             hl.setOrientation(LinearLayout.HORIZONTAL);
+
+
 
             // zoom out button
             bZoomOut=new ImageButton(context);
@@ -667,41 +760,50 @@ public abstract class PdfViewerActivity extends Activity {
 
             addSpace(hl, 20, 20);
 
-            /* THIS CODE IS ADDED */
-            // search button
-
-            Button bSearch = new Button(context);
-            bSearch.setLayoutParams(lpChild1);
-            bSearch.setText("Search");
-            bSearch.setWidth(60);
-            bSearch.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-            hl.addView(bSearch);
-
-            addSpace(vg, 6, 6);
-
-            Spinner navSpinner = new Spinner(context);
-            navSpinner.setLayoutParams(lpChild1);
-            ArrayAdapter chapters = ArrayAdapter.createFromResource
-                    (context, R.array.chapters,
-                            R.layout.support_simple_spinner_dropdown_item);
-            navSpinner.setAdapter(chapters);
-
-            /* Search box */
-
-            EditText searchBox = new EditText(context);
-            searchBox.setLayoutParams(lpChild1);
-            searchBox.setWidth(250);
-            hl.addView(searchBox);
-
-
-            /* END OF ADDED CODE */
-
             vg.addView(hl);
+        }
+
+        /**
+         * Sets the contents of the sub chapter to display the correct contents when the chapter spinner is changed.
+         */
+        private void changeSubChaptSpinner(){
+            ArrayAdapter subChapts = ArrayAdapter.createFromResource
+                    (this.getContext(),
+                            chaptToSubChapt(chaptSpinner.getSelectedItemPosition()),
+                            R.layout.support_simple_spinner_dropdown_item);
+            subChaptSpinner.setAdapter(subChapts);
+//            Log.i(TAG, "Changed spinner menu to :" +  Integer.toString(chaptToSubChapt(chaptSpinner.getSelectedItemPosition())));
+        }
+
+        /**
+         * Added helper method
+         * @param chaptNum
+         * @return
+         */
+        private int chaptToSubChapt(int chaptNum){
+            switch(chaptNum){
+                case 0:
+                    return R.array.GadhadaI;
+                case 1:
+                    return R.array.Sarangpur;
+                case 2:
+                    return R.array.Kariyani;
+                case 3:
+                    return R.array.Loya;
+                case 4:
+                    return R.array.Panchala;
+                case 5:
+                    return R.array.GadhadaII;
+                case 6:
+                    return R.array.Vartal;
+                case 7:
+                    return R.array.Amdavad;
+                case 8:
+                    return R.array.GadhadaIII;
+                case 9:
+                    return R.array.AdditionalVachanamruts;
+            }
+            return -1;
         }
 
         private void addSpace(ViewGroup vg, int width, int height) {
@@ -779,6 +881,16 @@ public abstract class PdfViewerActivity extends Activity {
                 if (mBtPage2 != null)
                     mBtPage2.setText(mPdfPage.getPageNumber()+"/"+mPdfFile.getNumPages());
             }
+        }
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            changeSubChaptSpinner();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
         }
 
 		/*private String format(double value, int num) {
@@ -864,7 +976,7 @@ public abstract class PdfViewerActivity extends Activity {
             throw e;
         } catch (Throwable e) {
             e.printStackTrace();
-            mGraphView.showText("Exception: "+e.getMessage());
+            mGraphView.showText("Exception: " + e.getMessage());
         }
         //long stopTime = System.currentTimeMillis();
         //mGraphView.fileMillis = stopTime-startTime;
@@ -957,6 +1069,7 @@ public abstract class PdfViewerActivity extends Activity {
             mTmpFile = null;
         }
     }
+
 
     /*private void postHideNavigation() {
     	// Start a time to hide the panel after 3 seconds

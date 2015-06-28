@@ -6,8 +6,320 @@
     <string name="title_activity_pdfreader">PDFReaderActivity</string>
 
     <string-array name="chapters">
-        <item>Part 1</item>
-        <item>Part 2</item>
-        <item>Part 3</item>
+        <item>Gadhadã I</item>
+        <item>Sãrangpur</item>
+        <item>Kãriyãni</item>
+        <item>Loyã</item>
+        <item>Panchãlã</item>
+        <item>Gadhadã II</item>
+        <item>Vartãl</item>
+        <item>Amdãvãd</item>
+        <item>Gadhadã III</item>
+        <item>Additional Vachanãmruts</item>
     </string-array>
+
+    <string-array name="GadhadaI">
+        <item>1: Continuously Engaging One\'s Mind on God</item>
+        <item>2: Three Levels of Vairãgya</item>
+        <item>3: Remembering the Divine Actions and Incidents of God</item>
+        <item>4: Jealousy like that of Nãradji</item>
+        <item>5: Persistence in Meditation</item>
+        <item>6: One with Wisdom and One without Wisdom</item>
+        <item>7: Anvay-Vyatirek</item>
+        <item>8: Engaging the Indriyas in the Service of God and His Sant</item>
+        <item>9: Desiring Nothing Except God</item>
+        <item>10: The Ungrateful Sevakrãm</item>
+        <item>11: \'Vãsanã\'; An Ekãntik Bhakta</item>
+        <item>12: The Attributes of the Elements; Creation</item>
+        <item>13: Planting the Branch of a Banyan or Pipal Tree Elsewhere</item>
+        <item>14: "Ante Yã Matihi Sã Gatihi"</item>
+        <item>15: Not Becoming Discouraged in Meditation</item>
+        <item>16: Wisdom</item>
+        <item>17: Negative Influence in Satsang: Not Uttering Discouraging Words</item>
+        <item>18: Denouncing the Vishays; A Haveli</item>
+        <item>19: The Interdependency of Ãtmã-realisation and Other Virtues </item>
+        <item>20: An Ignorant Person; Seeing One’s Own Self</item>
+        <item>21: One Possessing Ekãntik Dharma; The Two Forms of Akshar</item>
+        <item>22: Singing without Remembering God Is as Good as Not Singing at All; The Digit \'1\'</item>
+        <item>23: Emptying a Pot of Water; Remaining in an Elevated Spiritual State</item>
+        <item>24: The Elevated Spiritual State of Gnãn; \'Sourness\'in the Form of the Understanding of God\'s Greatness</item>
+        <item>25: The Flow of Twenty Pails of Water</item>
+        <item>26: A Genuine Amorous Devotee; The Nirgun State</item>
+        <item>27: The Understanding by which God Eternally Resides within One</item>
+        <item>28: A Smouldering Log; Progressing and Regressing</item>
+        <item>29: Intensifying the Force of Dharma, Gnãn, Vairãgya and Bhakti; Prãrabdha, Grace and Personal Endeavour</item>
+        <item>30: Thoughts that Leave a Lasting Impression</item>
+        <item>31: Greatness Is Due To Faith</item>
+        <item>32: A Nest and a Stake</item>
+        <item>33: Blind Faith, Love and Understanding</item>
+        <item>34: Setting the World in Motion</item>
+        <item>35: Safeguarding One’s Liberation</item>
+        <item>36: A True Renunciant, Based on the Example of a Pauper</item>
+        <item>37: Attachment to One’s Native Place; Eleven Honours</item>
+        <item>38: A Merchant’s Balance Sheet</item>
+        <item>39: Those Possessing the Nirvikalp or Savikalp State</item>
+        <item>40: Savikalp and Nirvikalp Samãdhi</item>
+        <item>41: "Eko’ham Bahu Syãm"</item>
+        <item>42: The Observance of the Moral Do\'s and Don\'ts</item>
+        <item>43: The Four Types of Liberation</item>
+        <item>44: A Red-hot Branding Iron; A Dagli</item>
+        <item>45: Does God Possess a Form or Is He Formless?</item>
+        <item>46: The Creation and Destruction of Ãkãsh</item>
+        <item>47: The Characteristics of Those Who Have the Four Types of Firmness</item>
+        <item>48: The Four Types of Kusangis</item>
+        <item>49: \'Antardrashti\'</item>
+        <item>50: One Possessing a Sharp Intellect</item>
+        <item>51: Only a Diamond Can Cut a Diamond</item>
+        <item>52: Realising God through the Four Scriptures</item>
+        <item>53: Progress and Regress</item>
+        <item>54: Upholding Bhãgwat Dharma; The Gateway to Liberation</item>
+        <item>55: Resoluteness in Worship, Remembrance and Observance of Religious Vows</item>
+        <item>56: Hollow Stones</item>
+        <item>57: The Most Extraordinary Means to Attain Liberation</item>
+        <item>58: The Body, Bad Company and Past Sanskãrs; One Becomes like One Perceives the Great</item>
+        <item>59: Unparalleled Love</item>
+        <item>60: Observing Ekãntik Dharma; Eradicating Worldly Desires</item>
+        <item>61: King Bali</item>
+        <item>62: Acquiring the Virtues of Satya, Shauch, Etc.</item>
+        <item>63: Faith; Realising God Perfectly</item>
+        <item>64: The Relationship between Sharir and Shariri; A Master-Servant Relationship</item>
+        <item>65: \'Gnãn-shakti\', \'Kriyã-shakti\' and \'Ichchhã-shakti\'</item>
+        <item>66: Misinterpreting the Words of the Scriptures; The Four Emanations of God</item>
+        <item>67: Acquiring the Virtues of the Satpurush</item>
+        <item>68: God Forever Resides in the Eight Types of Murtis and in the Sant</item>
+        <item>69: The Dharma of a Wicked Person and a Sãdhu</item>
+        <item>70: Kãkãbhãi\'s Question; A Thief Injured by a Thorn</item>
+        <item>71: God Manifests with His Akshardhãm</item>
+        <item>72: Faith Coupled with the Knowledge of God’s Greatness</item>
+        <item>73: Conquering Lust; Becoming Free of Worldly Desires</item>
+        <item>74: Understanding Is Measured in Times of Hardship</item>
+        <item>75: Redeeming Seventy-One Generations</item>
+        <item>76: An Angry Person, a Jealous Person, a Deceitful Person and an Egotistical Person</item>
+        <item>77: Not Invalidating Dharma under the Pretext of Gnãn</item>
+        <item>78: The Predominance of Place, Time, Etc.</item>
+    </string-array>
+
+    <string-array name="Sarangpur">
+        <item>1: Conquering the Mind</item>
+        <item>2: Developing Affection for the Form of God</item>
+        <item>3: \'Shravan\'\', \'Manan\', \'Nididhyãs\' and \'Sãkshãtkãr\'</item>
+        <item>4: Wisdom in Discerning between Ãtmã and Non-Ãtmã</item>
+        <item>5: Anvay-Vyatirek</item>
+        <item>6: Two States within Each State; The Four Types of Speech</item>
+        <item>7: Naimishãranya Kshetra</item>
+        <item>8: The Characteristics of Jealousy</item>
+        <item>9: The Prevalence of the Dharma of the Yugs; \'Sthãn\'</item>
+        <item>10: A Physical Perspective versus the Ãtmã\'s Perspective; Being Beaten by Shoes</item>
+        <item>11: Personal Endeavour</item>
+        <item>12: Thinking about the Ãtmã</item>
+        <item>13: Losing Faith and Not Losing Faith</item>
+        <item>14: Laziness and Infatuation</item>
+        <item>15: Obstinate, Mediocre and Mature Gopis</item>
+        <item>16: Narnãrãyan’s Austerities</item>
+        <item>17: Differences among Muktas; The Branch of a Tamarind Tree</item>
+        <item>18: Saline Land</item>
+    </string-array>
+
+    <string-array name="Kariyani">
+        <item>1: A Worm and a Bee</item>
+        <item>2: A Cursed Intellect</item>
+        <item>3: Shuk Muni Is a Great Sãdhu; A Person Cannot Be Known by His Superficial Nature</item>
+        <item>4: Awareness of the Jiva and the Witness</item>
+        <item>5: God\'s Purpose for Assuming an Avatãr</item>
+        <item>6: One Who Possesses Matsar</item>
+        <item>7: Vairãgya Due to Obsession; Ultimate Liberation</item>
+        <item>8: The Sagun and Nirgun Forms of God</item>
+        <item>9: Obstinacy like a Buffalo</item>
+        <item>10: Checking the Pulse; Austerities</item>
+        <item>11: The Characteristic of Affection</item>
+        <item>12: Destroying the Kãran Body; A Tamarind Seed</item>
+    </string-array>
+
+    <string-array name="Loya">
+        <item>1: Anger; Developing Complete Satsang</item>
+        <item>2: One with Faith, Gnãn, Courage or Affection</item>
+        <item>3: One with Faith in God Coupled with the Knowledge of His Greatness</item>
+        <item>4: If One Doubts God, One Cannot Be Said to Have Overcome Mãyã</item>
+        <item>5: Controlling the Indriyas and the Antahkaran</item>
+        <item>6: Purifying the Company One Keeps</item>
+        <item>7: Realising God through the Indriyas, the Antahkaran and Experience</item>
+        <item>8: Eradicating the Over-Excitability of the Indriyas; Accepting Only Words Related to One\'s Inclination</item>
+        <item>9: Factors which Lead to the Development of Dharma, Gnãn, Vairãgya and Bhakti</item>
+        <item>10: Remaining Uninfatuated</item>
+        <item>11: Beliefs of a Holy and Unholy Person</item>
+        <item>12: The Six Levels of Faith; Savikalp and Nirvikalp Faith</item>
+        <item>13: Not Being Overcome by Adverse Circumstances</item>
+        <item>14: Personal Preferences</item>
+        <item>15: Explaining Ãtmãdarshan Using the Analogies of a Doll and a Cow</item>
+        <item>16: Worldly Desires Becoming Blunt and Uprooted</item>
+        <item>17: Reverence and Condemnation</item>
+        <item>18: Conviction of God</item>
+    </string-array>
+
+    <string-array name="Panchala">
+        <item>1: One Who Is Intelligent; Applying a Thought Process</item>
+        <item>2: Sãnkhya and Yoga</item>
+        <item>3: Muni Bãwã; That Which Is Instrumental in Attaining Liberation Is Known as Intelligence</item>
+        <item>4: Perceiving Divinity in the Human Traits of God</item>
+        <item>5: Where Is Conceit Appropriate, and Where Is Humility Appropriate?</item>
+        <item>6: Those with Firm Upãsanã Attain Liberation</item>
+        <item>7: The \'Mãyã\' of a Magician</item>
+    </string-array>
+
+    <string-array name="GadhadaII">
+        <item>1: The Cause of Infatuation</item>
+        <item>2: A Small Streamlet of Water</item>
+        <item>3: The Path of Amorousness and the Knowledge of the Ãtmã</item>
+        <item>4: Constant Contemplation Is Achieved through Mãhãtmyã and Shraddha; A Torn Waistcloth and a Gourd</item>
+        <item>5: Fidelity and Courage</item>
+        <item>6: A Draft; The Nature of the Chitt</item>
+        <item>7: A Poor Man</item>
+        <item>8: Ekãdashi; \'Gnãn-Yagna\'; \'Antardrashti\'</item>
+        <item>9; Conviction of God; Realising God to be like Other Avatãrs Is Blasphemy</item>
+        <item>10: Safeguarding the Foetus in the Form of Faith in God</item>
+        <item>11: All Karmas Becoming a Form of Bhakti</item>
+        <item>12: The Art of Ruling</item>
+        <item>13: Divine Light</item>
+        <item>14: Nirvikalp Samadhi</item>
+        <item>15: Keeping Enmity towards One’s Swabhãvs</item>
+        <item>16: Faith in God and Faith in Dharma</item>
+        <item>17: The Elements in the Form of God; \'Sthitapragna\'</item>
+        <item>18: Nãstiks and Shushka-Vedãntis</item>
+        <item>19: Writing a Letter Having Become Distressed by Hearing Shushka-Vedãnta Scriptures</item>
+        <item>20: How Do the Faculty of Knowing and the Strength of the Indriyas of One Who Has Mastered Samãdhi Increase?</item>
+        <item>21: The Main Principle</item>
+        <item>22: Two Armies; The Installation of Nar-Nãrãyan</item>
+        <item>23: Heat and Frost</item>
+        <item>24: Resoluteness in Sãnkhya and in Yoga; Choko-Pãtlo</item>
+        <item>25: A Renunciant Who Harbours Worldly Desires and a Householder Who Has No Worldly Desires</item>
+        <item>26: Suppressing Ãtma-realisation and Other Virtues if They Obstruct Bhakti</item>
+        <item>27: The Great Are Pleased When No Impure Desires Remain</item>
+        <item>28: Mahãrãj\'s Compassionate Nature; A \'Lifeline\'</item>
+        <item>29: The Characteristics of One Who Is Attached to God</item>
+        <item>30: Not Becoming Bound by Women and Gold</item>
+        <item>31: Associating with Brahma through Contemplation</item>
+        <item>32: A Cactus Plant; Unhindered Bhakti</item>
+        <item>33: The Vow of Non-Lust</item>
+        <item>34: Are the Elements Jad or Chaitanya?</item>
+        <item>35: The Underground Store of Grains</item>
+        <item>36: Four Means of Maintaining Continuous Vrutti</item>
+        <item>37: Eradicating One’s Innate Natures; Even a Person Possessing Gnãn Behaves According to His Nature</item>
+        <item>38: Mãnchã Bhakta; \'Merging\'</item>
+        <item>39: Natural Virtues</item>
+        <item>40: Offering One Extra Prostration</item>
+        <item>41: A Bone in the Form of Egotism</item>
+        <item>42: Akshar Has Both Sagun and Nirgun Aspects; The Key</item>
+        <item>43: Brahmaswarup Love</item>
+        <item>44: The Characteristics of Godly and Demonic People</item>
+        <item>45: Expelling the Horde of the Fifty-One Bhuts</item>
+        <item>46: The \'Death-line\'; Falling from Ekãntik Dharma</item>
+        <item>47: A Split in the Pruthvi Down to Pãtãl</item>
+        <item>48: The \'Vandu\' Devotional Songs; Taking Birth in the Company of the Sant</item>
+        <item>49: A Great Difference Exists between God\'s Form and Mãyik Forms; Not Becoming Content with Spiritual Discourses, Devotional Songs, etc.</item>
+        <item>50: The Fundamental Principle; Worldly Attachment</item>
+        <item>51: The Characteristics of One Who Behaves as the Ãtmã</item>
+        <item>52: What Befits a Renunciant and What Befits a Householder</item>
+        <item>53: Not Being Able to Perceive One’s Own Flaws Is Delusion</item>
+        <item>54: Satsang Is the Greatest Spiritual Endeavour; A \'Gokhar\'; Profound Attachment</item>
+        <item>55: A Goldsmith\'s Workshop</item>
+        <item>56: A Lightly Dyed Cloth</item>
+        <item>57: The Example of a Lizard; A \'Cat-like\' Devotee</item>
+        <item>58: The Flourishing of a Sampradãy</item>
+        <item>59: Ultimate Liberation</item>
+        <item>60: Overcoming Difficulties; Being Loyal</item>
+        <item>61: Niyams, Faith in God, and Loyalty</item>
+        <item>62: Ãtmã-Realisation, Fidelity and Servitude</item>
+        <item>63: Gaining Strength</item>
+        <item>64: Purushottam Bhatt\'s Question</item>
+        <item>65: The Over-Wise</item>
+        <item>66: Questions to the Senior Sãdhus; Holding a Red-Hot Iron Ball</item>
+        <item>67: The Gangãjaliyo Well</item>
+    </string-array>
+
+    <string-array name="Vartal">
+        <item>1: Nirvikalp Samãdhi</item>
+        <item>2: Realising God through the Four Scriptures; Kãndãsji\'s Question</item>
+        <item>3: Four Types of Eminent Spiritual People</item>
+        <item>4: A Fountain</item>
+        <item>5: One Should Not Perceive Mãyã in God; Performing Similar Service</item>
+        <item>6: Chimanrãvji\'s Question</item>
+        <item>7: The Characteristics of Godly and Demonic People; Anvay-Vyatirek</item>
+        <item>8: A Spider’s Web</item>
+        <item>9: How Can One Experience the Nirgun Bliss of God?</item>
+        <item>10: How the Jiva Attains Liberation</item>
+        <item>11: The Destruction of the Jiva; Love for the Satpurush Is the Only Means to Realising the Ãtmã</item>
+        <item>12: Faith Coupled with the Knowledge of God\'s Greatness</item>
+        <item>13: If Brahma Pervades, How Can It Possess a Form?</item>
+        <item>14: Whom a Non-believer Considers a Sinner Is Not a Sinner, and Whom He Considers to be Sincere in His Dharma Is Not Really So</item>
+        <item>15: The Reasons for Becoming Godly and Demonic</item>
+        <item>16: Not Feeling Comfortable with Worldly Great Men</item>
+        <item>17: An Enlightened Person Has Conquered His Indriyas</item>
+        <item>18: Facts That Must Be Understood</item>
+        <item>19: Becoming a Devotee of God; Indiscretion</item>
+        <item>20: King Janak\'s Understanding</item>
+    </string-array>
+
+    <string-array name="Amdavad">
+        <item>1: Miraculous Meditation</item>
+        <item>2: Performing Puja after Washing and Bathing</item>
+        <item>3: The Implanted Branch of a Banyan Tree; Upsham</item>
+    </string-array>
+
+    <string-array name="GadhadaIII">
+        <item>1: The Inclinations of Gnãn and Affection</item>
+        <item>2: The Attainment of All Purushãrths; Incarnate God in the Form of the Guru</item>
+        <item>3: Compassion and Affection</item>
+        <item>4: Bãdhitãnuvrutti</item>
+        <item>5: Bhakti Coupled with the Knowledge of God’s Greatness</item>
+        <item>6: The Friendship between the Mind and the Jiva</item>
+        <item>7: An Iron Nail</item>
+        <item>8: Remaining Eternally Happy</item>
+        <item>9: The Gateway in the Form of Awareness</item>
+        <item>10: Vrundãvan and Kãshi</item>
+        <item>11: Understanding like that of Sitãji</item>
+        <item>12: A Magical Technique</item>
+        <item>13: Maintaining Ekãntik Dharma amidst Adverse Circumstances</item>
+        <item>14: The Kãyasth’s Indiscretion; A Donkey</item>
+        <item>15: Applying Bandages to Wounds</item>
+        <item>16: The Vow of Fidelity</item>
+        <item>17: The Story of Bharatji</item>
+        <item>18: The Degeneration of Worldly Desires</item>
+        <item>19: Two Undesirable Traits of a Renunciant</item>
+        <item>20: \'Swabhãv\', \'Prakruti\' and \'Vãsanã\'</item>
+        <item>21: A Golden Thread; Dharma Possesses the Same Eminence as Bhakti</item>
+        <item>22: An Intimate Form of Bhakti</item>
+        <item>23: Mãnsi Pujã</item>
+        <item>24: Sixteen Spiritual Endeavours; Vairãgya Due To Gnãn</item>
+        <item>25: Pleasing Shriji Mahãraj; A True Devotee of God</item>
+        <item>26: The Sant Who Suppresses His Mind and Indriyas</item>
+        <item>27: Not Keeping Any Obstinacy</item>
+        <item>28: Falling from the Path of God</item>
+        <item>29: Two Twenty-Year-Old Devotees of God</item>
+        <item>30: Constant Awareness of Five Thoughts</item>
+        <item>31: A Method of Meditation Using the Example of a Shadow</item>
+        <item>32: Committing Sins under the Pretext of Knowing God’s Greatness</item>
+        <item>33: Not Allowing the Mind to Become Affected by Four Things</item>
+        <item>34: Maintaining Desires Only for God</item>
+        <item>35: Forcefully Altering One\'s Innate Nature; God Is Maligned When His Bhakta Is Maligned</item>
+        <item>36: The Most Extraordinary Spiritual Endeavour for Liberation</item>
+        <item>37: Objects Enjoyed Previously Are Remembered in Times of Poverty</item>
+        <item>38: The Sãnkhya Scriptures and Others; Remaining Forever Happy</item>
+        <item>39: Vishalyakarani Herbal Medicine</item>
+    </string-array>
+
+    <string-array name="AdditionalVachanamruts">
+        <item>Bhugol-Khagol Regarding Geography and Astronomy</item>
+        <item>Amdãvãd-4</item>
+        <item>Amdãvãd-5</item>
+        <item>Amdãvãd-6</item>
+        <item>Amdãvãd-7</item>
+        <item>Amdãvãd-8</item>
+        <item>Ashlãli</item>
+        <item>Jetalpur-1</item>
+        <item>Jetalpur-2</item>
+        <item>Jetalpur-3</item>
+        <item>Jetalpur-4</item>
+        <item>Jetalpur-5</item>
+    </string-array>
+
 </resources>
