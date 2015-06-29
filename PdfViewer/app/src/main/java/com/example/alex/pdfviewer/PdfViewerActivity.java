@@ -65,6 +65,38 @@ import java.nio.channels.FileChannel;
  */
 public abstract class PdfViewerActivity extends Activity {
 
+    //first column has 10 pages, the rest have 15 except the last
+    private static final int[] GADHADAI = {1, 3, 4, 4, 6, 6, 7, 8, 8, 9
+            , 10, 11, 15, 16, 19, 20, 21, 22, 26, 27, 29, 32, 33, 35, 38,
+            41, 43, 45, 46, 48, 50, 51, 55, 56, 58, 60, 61, 63, 67, 69,
+            71, 73, 76, 78, 80, 82, 84, 87, 88, 90, 91, 93, 96, 97, 98,
+            99, 103, 105, 106, 108, 110, 112, 114, 119, 121, 124, 126, 128, 130, 131,
+            136, 139, 143, 150, 151, 153, 153, 156};
+    private static final int[] SARANGPUR = {166, 168, 172, 175, 177, 180, 183, 184, 185, 187,
+    188, 191, 193, 194, 199, 202, 203, 205};
+    private static final int[] KARIYANI = {210, 215, 217, 220, 221, 223, 225, 228, 230, 231,
+    234, 237};
+    private static final int[] LOYA = {239, 244, 247, 249, 251, 254, 260, 268, 273, 274,
+    281, 283, 285, 289, 292, 297, 300, 304};
+    private static final int[] PANCHALA = {311, 314, 321, 327, 334, 335, 337};
+    private static final int[] GADHADAII = {342, 347, 349, 352, 355, 356, 358, 359, 364, 367,
+            373, 375, 377, 382, 384, 385, 390, 393, 396, 398, 400, 403, 406, 408, 409,
+            411, 412, 415, 417, 418, 419, 423, 424, 428, 429, 433, 434, 435, 437, 440,
+            442, 443, 445, 446, 447, 449, 450, 452, 454, 455, 456, 457, 459, 460, 461,
+            464, 465, 468, 469, 470, 473, 474, 479, 480, 483, 485, 489};
+    private static final int[] VARTAL = {493, 495, 500, 502, 504, 506, 509, 510, 512, 512,
+            514, 517, 519, 521, 522, 523, 524, 527, 531, 532};
+    private static final int[] AMDAVAD = {534, 536, 538};
+    private static final int[] GADHADAIII = {542, 545, 547, 551, 553, 556, 558, 559, 560, 562,
+            564, 566, 567, 570, 576, 577, 579, 580, 582, 583, 584, 587, 590, 592, 595,
+            598, 600, 604, 607, 610, 611, 613, 615, 619, 621, 625, 627, 629, 630};
+    private static final int[] ADDITIONAL_VACHANAMRUTS = {661, 638, 640, 642, 644, 645, 647, 648, 650, 653,
+            655, 658};
+    // the array that maps the item selected on the spinners to the new page
+    private static final int[][] CHAPTERS_TO_PAGES = {GADHADAI, SARANGPUR, KARIYANI,
+            LOYA, PANCHALA, GADHADAII, VARTAL, AMDAVAD, GADHADAIII, ADDITIONAL_VACHANAMRUTS};
+
+    // collects system.out to see if rendering failed
     public PrintStream ps;
 
     private static final int STARTPAGE = 1;
@@ -485,7 +517,7 @@ public abstract class PdfViewerActivity extends Activity {
         return null;
     }
 
-    private class GraphView extends FullScrollView implements AdapterView.OnItemSelectedListener{
+    private class GraphView extends FullScrollView {
         //private String mText;
         //private long fileMillis;
         //private long pageParseMillis;
@@ -599,7 +631,7 @@ public abstract class PdfViewerActivity extends Activity {
             Context context = vg.getContext();
             LinearLayout.LayoutParams lpChild1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
             LinearLayout.LayoutParams lpWidth400 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
-            lpWidth400.width = 350;
+            lpWidth400.width = 450;
             LinearLayout.LayoutParams lpHeight30 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
             lpHeight30.height = 40;
             LinearLayout.LayoutParams lpWrap10 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,10);
@@ -636,14 +668,39 @@ public abstract class PdfViewerActivity extends Activity {
             topl.addView(subChaptSpinner);
 
             // now set subchapter spinner to change when chapter is selected
-            chaptSpinner.setOnItemSelectedListener(this);
+            chaptSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    // your code here
+                    changeSubChaptSpinner();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {
+                    // your code here
+                }
+
+            });
+
+            //Go to section button
+
+            Button goToSection = new Button(context);
+            goToSection.setText("View selection");
+            goToSection.setLayoutParams(lpChild1);
+            goToSection.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   selectSection();
+                }
+            });
+
+            secondl.addView(goToSection);
 
             // search button
 
             Button bSearch = new Button(context);
             bSearch.setLayoutParams(lpChild1);
             bSearch.setText("Search");
-            bSearch.setWidth(60);
             bSearch.setHeight(40);
             bSearch.setOnClickListener(new OnClickListener() {
                 @Override
@@ -659,7 +716,7 @@ public abstract class PdfViewerActivity extends Activity {
 
             EditText searchBox = new EditText(context);
             searchBox.setLayoutParams(lpWrap10);
-            searchBox.setWidth(500);
+            searchBox.setWidth(300);
             searchBox.setMaxLines(1);
             secondl.addView(searchBox);
             //Hide keyboard, si
@@ -736,7 +793,7 @@ public abstract class PdfViewerActivity extends Activity {
             mBtPage=new Button(context);
             mBtPage.setLayoutParams(lpChild1);
             String maxPage = ((mPdfFile==null)?"0":Integer.toString(mPdfFile.getNumPages()));
-            mBtPage.setText(mPage+"/"+maxPage);
+            mBtPage.setText(mPage + "/" + maxPage);
             mBtPage.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
                     gotoPage();
@@ -761,6 +818,22 @@ public abstract class PdfViewerActivity extends Activity {
             addSpace(hl, 20, 20);
 
             vg.addView(hl);
+        }
+
+
+        /**
+         * Gets the current item selected from both spinners and loads the appropriate page.
+         */
+        private void selectSection(){
+            int[] chapter = CHAPTERS_TO_PAGES[chaptSpinner.getSelectedItemPosition()];
+            int subChapter = chapter[subChaptSpinner.getSelectedItemPosition()] + 32;
+            if(subChapter != mPage){
+                mPage = subChapter; //offset for the introduction
+                mGraphView.bZoomOut.setEnabled(true);
+                mGraphView.bZoomIn.setEnabled(true);
+                progress = ProgressDialog.show(PdfViewerActivity.this, "Loading", "Loading PDF Page " + mPage, true, true);
+                startRenderThread(mPage, mZoom);
+            }
         }
 
         /**
@@ -817,7 +890,7 @@ public abstract class PdfViewerActivity extends Activity {
         }
 
         private void showText(String text) {
-            Log.i(TAG, "ST='"+text+"'");
+            Log.i(TAG, "ST='" + text + "'");
             //mText = text;
             updateUi();
         }
@@ -877,20 +950,10 @@ public abstract class PdfViewerActivity extends Activity {
     		 */
             if (mPdfPage != null) {
                 if (mBtPage != null)
-                    mBtPage.setText(mPdfPage.getPageNumber()+"/"+mPdfFile.getNumPages());
+                    mBtPage.setText(mPdfPage.getPageNumber() + "/" + mPdfFile.getNumPages());
                 if (mBtPage2 != null)
-                    mBtPage2.setText(mPdfPage.getPageNumber()+"/"+mPdfFile.getNumPages());
+                    mBtPage2.setText(mPdfPage.getPageNumber() + "/" + mPdfFile.getNumPages());
             }
-        }
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            changeSubChaptSpinner();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
         }
 
 		/*private String format(double value, int num) {
