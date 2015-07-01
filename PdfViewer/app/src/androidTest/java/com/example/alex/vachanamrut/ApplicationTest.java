@@ -1,4 +1,4 @@
-package com.example.alex.pdfviewer;
+package com.example.alex.vachanamrut;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

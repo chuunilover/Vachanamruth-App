@@ -1,9 +1,10 @@
-package com.example.alex.pdfviewer;
+package com.example.alex.vachanamrut;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -38,6 +39,10 @@ public class MainActivity extends ListActivity {
             pdflist[i] = imagelist[i].getName();
         }
         this.setListAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, pdflist));
+       // openPdfIntent(this);
+        File file = new File("android.resource://com.example.alex.vachanamrut/assets/vachanamrut-4.pdf");
+        Log.i("HI", file.getAbsolutePath());
+        Log.i("HI", Boolean.toString(file.exists()));
     }
 
     @Override

@@ -6,6 +6,7 @@
     <string name="title_activity_pdfreader">PDFReaderActivity</string>
 
     <string-array name="chapters">
+        <item>Introduction</item>
         <item>Gadhadã I</item>
         <item>Sãrangpur</item>
         <item>Kãriyãni</item>
@@ -16,6 +17,19 @@
         <item>Amdãvãd</item>
         <item>Gadhadã III</item>
         <item>Additional Vachanãmruts</item>
+        <item>Glossary</item>
+        <item>Appendices</item>
+    </string-array>
+
+    <string-array name="Intro">
+        <item>Blessings by H.D.H. Pramukh Swãmi Mahãrãj</item>
+        <item>An Introduction to the Vachanãmrut</item>
+        <item>Preface</item>
+        <item>Bhagwãn Swãminãrãyan</item>
+        <item>H.D.H. Pramukh Swãmi Mahãrãj</item>
+        <item>The BAPS Swãminãrãyan Sansthã</item>
+        <item>Table of Contents</item>
+
     </string-array>
 
     <string-array name="GadhadaI">
@@ -297,7 +311,7 @@
         <item>29: Two Twenty-Year-Old Devotees of God</item>
         <item>30: Constant Awareness of Five Thoughts</item>
         <item>31: A Method of Meditation Using the Example of a Shadow</item>
-        <item>32: Committing Sins under the Pretext of Knowing God’s Greatness</item>
+        <item>32: Committing Sins under the Pretext of Knowing God\'s Greatness</item>
         <item>33: Not Allowing the Mind to Become Affected by Four Things</item>
         <item>34: Maintaining Desires Only for God</item>
         <item>35: Forcefully Altering One\'s Innate Nature; God Is Maligned When His Bhakta Is Maligned</item>
@@ -320,6 +334,34 @@
         <item>Jetalpur-3</item>
         <item>Jetalpur-4</item>
         <item>Jetalpur-5</item>
+    </string-array>
+
+    <string-array name="Letters">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>P</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>Y</item>
+    </string-array>
+    <string-array name="Appendices">
+        <item>Appendix A: Endnotes</item>
+        <item>Appendix B: The Hindu Calendar and Time Scales</item>
     </string-array>
 
 </resources>

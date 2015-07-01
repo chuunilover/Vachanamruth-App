@@ -1,7 +1,6 @@
-package com.example.alex.pdfviewer;
+package com.example.alex.vachanamrut;
 
 import android.os.Bundle;
-
 
 
 public class PDFReaderActivity extends PdfViewerActivity

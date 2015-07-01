@@ -1,4 +1,4 @@
-package com.example.alex.pdfviewer;
+package com.example.alex.vachanamrut;
 
 
 import android.app.Activity;
@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -56,7 +57,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
-
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -65,7 +66,11 @@ import java.nio.channels.FileChannel;
  */
 public abstract class PdfViewerActivity extends Activity {
 
+
+    //Page numbers of each "section"
     //first column has 10 pages, the rest have 15 except the last
+    //Intro has negative page numbers as page 1 begins on page 33 of the PDF
+    private static final int[] INTRO = {-29, -27, -24, -13, -12, -11, -9};
     private static final int[] GADHADAI = {1, 3, 4, 4, 6, 6, 7, 8, 8, 9
             , 10, 11, 15, 16, 19, 20, 21, 22, 26, 27, 29, 32, 33, 35, 38,
             41, 43, 45, 46, 48, 50, 51, 55, 56, 58, 60, 61, 63, 67, 69,
@@ -92,9 +97,15 @@ public abstract class PdfViewerActivity extends Activity {
             598, 600, 604, 607, 610, 611, 613, 615, 619, 621, 625, 627, 629, 630};
     private static final int[] ADDITIONAL_VACHANAMRUTS = {661, 638, 640, 642, 644, 645, 647, 648, 650, 653,
             655, 658};
+    private static final int[] GLOSSARY_LETTERS = {670, 676, 681, 682, 686, 687, 687, 689, 689, 691,
+    692, 697, 697, 701, 704, 710, 711, 720, 722, 723, 728};
+    private static final int[] APPENDICES = {730, 735};
     // the array that maps the item selected on the spinners to the new page
-    private static final int[][] CHAPTERS_TO_PAGES = {GADHADAI, SARANGPUR, KARIYANI,
-            LOYA, PANCHALA, GADHADAII, VARTAL, AMDAVAD, GADHADAIII, ADDITIONAL_VACHANAMRUTS};
+    private static final int[][] CHAPTERS_TO_PAGES = {INTRO, GADHADAI, SARANGPUR, KARIYANI,
+            LOYA, PANCHALA, GADHADAII, VARTAL, AMDAVAD, GADHADAIII, ADDITIONAL_VACHANAMRUTS,
+            GLOSSARY_LETTERS, APPENDICES};
+
+
 
     // collects system.out to see if rendering failed
     public PrintStream ps;
@@ -536,9 +547,9 @@ public abstract class PdfViewerActivity extends Activity {
         ImageButton bZoomOut;
         ImageButton bZoomIn;
 
+
         public GraphView(Context context) {
             super(context);
-
             //setContentView(R.layout.graphics_view);
             // layout params
             LinearLayout.LayoutParams lpWrap1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
@@ -820,7 +831,6 @@ public abstract class PdfViewerActivity extends Activity {
             vg.addView(hl);
         }
 
-
         /**
          * Gets the current item selected from both spinners and loads the appropriate page.
          */
@@ -856,25 +866,31 @@ public abstract class PdfViewerActivity extends Activity {
         private int chaptToSubChapt(int chaptNum){
             switch(chaptNum){
                 case 0:
-                    return R.array.GadhadaI;
+                    return R.array.Intro;
                 case 1:
-                    return R.array.Sarangpur;
+                    return R.array.GadhadaI;
                 case 2:
-                    return R.array.Kariyani;
+                    return R.array.Sarangpur;
                 case 3:
-                    return R.array.Loya;
+                    return R.array.Kariyani;
                 case 4:
-                    return R.array.Panchala;
+                    return R.array.Loya;
                 case 5:
-                    return R.array.GadhadaII;
+                    return R.array.Panchala;
                 case 6:
-                    return R.array.Vartal;
+                    return R.array.GadhadaII;
                 case 7:
-                    return R.array.Amdavad;
+                    return R.array.Vartal;
                 case 8:
-                    return R.array.GadhadaIII;
+                    return R.array.Amdavad;
                 case 9:
+                    return R.array.GadhadaIII;
+                case 10:
                     return R.array.AdditionalVachanamruts;
+                case 11:
+                    return R.array.Letters;
+                case 12:
+                    return R.array.Appendices;
             }
             return -1;
         }
