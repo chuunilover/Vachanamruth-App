@@ -653,11 +653,6 @@ public abstract class PdfViewerActivity extends Activity {
             topl.setLayoutParams(lpHeight30);
             topl.setOrientation(LinearLayout.HORIZONTAL);
 
-            //second line of widgets
-            LinearLayout secondl = new LinearLayout(context);
-            secondl.setLayoutParams(lpWrap10);
-            topl.setOrientation(LinearLayout.HORIZONTAL);
-
             // chapter spinner
 
             chaptSpinner = new Spinner(context);
@@ -693,50 +688,6 @@ public abstract class PdfViewerActivity extends Activity {
 
             });
 
-            //Go to section button
-
-            Button goToSection = new Button(context);
-            goToSection.setText("View selection");
-            goToSection.setLayoutParams(lpChild1);
-            goToSection.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   selectSection();
-                }
-            });
-
-            secondl.addView(goToSection);
-
-            // search button
-
-            Button bSearch = new Button(context);
-            bSearch.setLayoutParams(lpChild1);
-            bSearch.setText("Search");
-            bSearch.setHeight(40);
-            bSearch.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-            secondl.addView(bSearch);
-
-            addSpace(topl, 6, 6);
-
-            /* Search box */
-
-            EditText searchBox = new EditText(context);
-            searchBox.setLayoutParams(lpWrap10);
-            searchBox.setWidth(300);
-            searchBox.setMaxLines(1);
-            secondl.addView(searchBox);
-            //Hide keyboard, si
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-
-            //Add new lines of widgets in order from top to bottom
-
-            vg.addView(secondl); //text search
             vg.addView(topl); //chapter search
         }
 
@@ -827,6 +778,20 @@ public abstract class PdfViewerActivity extends Activity {
             hl.addView(bNext);
 
             addSpace(hl, 20, 20);
+
+            //Go to section button
+
+            Button goToSection = new Button(context);
+            goToSection.setText("View selection");
+            goToSection.setLayoutParams(lpChild1);
+            goToSection.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectSection();
+                }
+            });
+
+            hl.addView(goToSection);
 
             vg.addView(hl);
         }
