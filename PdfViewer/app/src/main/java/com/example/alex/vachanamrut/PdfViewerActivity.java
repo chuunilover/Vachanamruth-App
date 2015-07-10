@@ -111,7 +111,7 @@ public abstract class PdfViewerActivity extends Activity {
     public PrintStream ps;
 
     private static final int STARTPAGE = 1;
-    private static final float STARTZOOM = 1.0f;
+    private static final float STARTZOOM = 3.0f;
 
     private static final float MIN_ZOOM = 0.25f;
     private static final float MAX_ZOOM = 3.0f;
