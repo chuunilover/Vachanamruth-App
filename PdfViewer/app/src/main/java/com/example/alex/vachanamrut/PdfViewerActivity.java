@@ -38,6 +38,7 @@ import android.widget.TextView;
 
 import com.sun.pdfview.PDFFile;
 import com.sun.pdfview.PDFImage;
+import com.sun.pdfview.PDFObject;
 import com.sun.pdfview.PDFPage;
 import com.sun.pdfview.PDFPaint;
 import com.sun.pdfview.decrypt.PDFAuthenticationFailureException;
@@ -119,6 +120,7 @@ public abstract class PdfViewerActivity extends Activity {
 
     private static final String TAG = "PDFVIEWER";
 
+    public static final String EXTRA_MULTIPDF = "net.sf.andpdf.extra.MULTIPDF";
     public static final String EXTRA_PDFFILENAME = "net.sf.andpdf.extra.PDFFILENAME";
     public static final String EXTRA_SHOWIMAGES = "net.sf.andpdf.extra.SHOWIMAGES";
     public static final String EXTRA_ANTIALIAS = "net.sf.andpdf.extra.ANTIALIAS";
@@ -150,6 +152,7 @@ public abstract class PdfViewerActivity extends Activity {
     private ProgressDialog progress;
     private Spinner subChaptSpinner;
     private Spinner chaptSpinner;
+    private boolean chapterChanged;
 
     /*private View navigationPanel;
     private Handler closeNavigationHandler;
@@ -160,6 +163,11 @@ public abstract class PdfViewerActivity extends Activity {
 
     private Thread backgroundThread;
     private Handler uiHandler;
+
+    //added multi pdf switching + quick chapter navigation
+    private PDFFileObject[] pdfs;
+    private int curPdf;
+    private boolean changedPdf;
 
 
 
@@ -223,6 +231,7 @@ public abstract class PdfViewerActivity extends Activity {
         restoreInstance();
         if (mOldGraphView != null) {
             mGraphView = new GraphView(this);
+            mGraphView.setBackgroundResource(getBackgroundImageResource());
             //mGraphView.fileMillis = mOldGraphView.fileMillis;
             mGraphView.mBi = mOldGraphView.mBi;
             //mGraphView.mLine1 = mOldGraphView.mLine1;
@@ -238,6 +247,7 @@ public abstract class PdfViewerActivity extends Activity {
         }
         else {
             mGraphView = new GraphView(this);
+            mGraphView.setBackgroundResource(getBackgroundImageResource());
             Intent intent = getIntent();
             Log.i(TAG, ""+intent);
 
@@ -255,7 +265,31 @@ public abstract class PdfViewerActivity extends Activity {
                     pdffilename = storeUriContentToFile(intent.getData());
                 }
                 else {
-                    pdffilename = getIntent().getStringExtra(PdfViewerActivity.EXTRA_PDFFILENAME);
+                    if(getIntent().getStringExtra(PdfViewerActivity.EXTRA_MULTIPDF).equals("FALSE")) {
+                        pdffilename = getIntent().getStringExtra(PdfViewerActivity.EXTRA_PDFFILENAME);
+                        curPdf = -1;
+                        pdfs = new PDFFileObject[0];
+                    }
+                    else{
+                        String[] pdfNames = getIntent().getStringArrayExtra(PdfViewerActivity.EXTRA_PDFFILENAME);
+                        pdfs = new PDFFileObject[pdfNames.length];
+                        curPdf = 0;
+                        for(int i = 0; i < pdfNames.length; i++){
+                            try {
+                                if(i==0){
+                                    pdfs[i] = new PDFFileObject(createPDF(pdfNames[i], null), CHAPTERS_TO_PAGES);
+                                    pdffilename= pdfNames[i];
+                                }
+                                else{
+                                    pdfs[i] = new PDFFileObject(createPDF(pdfNames[i], null), new int[0][0]);
+                                }
+
+                            } catch (PDFAuthenticationFailureException e) {
+                                e.printStackTrace();
+                            };
+
+                        }
+                    }
                 }
             }
 
@@ -264,6 +298,7 @@ public abstract class PdfViewerActivity extends Activity {
 
             mPage = STARTPAGE;
             mZoom = STARTZOOM;
+            changedPdf = false;
 
             setContent(null);
 
@@ -638,13 +673,13 @@ public abstract class PdfViewerActivity extends Activity {
          * @param vg
          */
         private void addAdditionalButtons (ViewGroup vg){
-
+            chapterChanged = true;
             Context context = vg.getContext();
             LinearLayout.LayoutParams lpChild1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
             LinearLayout.LayoutParams lpWidth400 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
             lpWidth400.width = 450;
             LinearLayout.LayoutParams lpHeight30 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
-            lpHeight30.height = 40;
+            //lpHeight30.height = 40;
             LinearLayout.LayoutParams lpWrap10 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,10);
 
 
@@ -670,6 +705,21 @@ public abstract class PdfViewerActivity extends Activity {
                     (context, R.array.GadhadaI,
                             R.layout.support_simple_spinner_dropdown_item);
             subChaptSpinner.setAdapter(subChapts); //by default Gadhad? I sections shown
+            subChaptSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (!chapterChanged) {
+                        selectSection();
+                    } else {
+                        chapterChanged = !chapterChanged;
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
 
             topl.addView(subChaptSpinner);
 
@@ -678,6 +728,7 @@ public abstract class PdfViewerActivity extends Activity {
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                     // your code here
+                    chapterChanged = true;
                     changeSubChaptSpinner();
                 }
 
@@ -698,7 +749,7 @@ public abstract class PdfViewerActivity extends Activity {
 
             LinearLayout.LayoutParams lpChild1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
             LinearLayout.LayoutParams lpWrap10 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,10);
-            lpWrap10.height = 80;
+            //lpWrap10.height = 80;
 
             Context context = vg.getContext();
             LinearLayout hl=new LinearLayout(context);
@@ -787,11 +838,17 @@ public abstract class PdfViewerActivity extends Activity {
             goToSection.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectSection();
+                    if (curPdf == 1) {
+                        changePdf(0);
+                    } else {
+                        changePdf(1);
+                    }
                 }
             });
 
             hl.addView(goToSection);
+
+            //hl.addView(goToSection);
 
             vg.addView(hl);
         }
@@ -820,6 +877,9 @@ public abstract class PdfViewerActivity extends Activity {
                             chaptToSubChapt(chaptSpinner.getSelectedItemPosition()),
                             R.layout.support_simple_spinner_dropdown_item);
             subChaptSpinner.setAdapter(subChapts);
+            //chapterChanged = true;
+            subChaptSpinner.setSelection(-1);
+
 //            Log.i(TAG, "Changed spinner menu to :" +  Integer.toString(chaptToSubChapt(chaptSpinner.getSelectedItemPosition())));
         }
 
@@ -957,8 +1017,9 @@ public abstract class PdfViewerActivity extends Activity {
             mGraphView.updateImage();
 
             // Only load the page if it's a different page (i.e. not just changing the zoom level)
-            if (mPdfPage == null || mPdfPage.getPageNumber() != page) {
+            if (mPdfPage == null || mPdfPage.getPageNumber() != page || changedPdf) {
                 mPdfPage = mPdfFile.getPage(page, true);
+                changedPdf = false;
             }
             //int num = mPdfPage.getPageNumber();
             //int maxNum = mPdfFile.getNumPages();
@@ -1026,6 +1087,49 @@ public abstract class PdfViewerActivity extends Activity {
         //mGraphView.fileMillis = stopTime-startTime;
     }
 
+    private PDFFile createPDF(String filename, String password) throws PDFAuthenticationFailureException {
+        //long startTime = System.currentTimeMillis();
+        try {
+            File f = new File(filename);
+            long len = f.length();
+            if (len == 0) {
+                mGraphView.showText("file '" + filename + "' not found");
+            }
+            else {
+                mGraphView.showText("file '" + filename + "' has " + len + " bytes");
+                return openAndReturnFile(f, password);
+            }
+        }
+        catch (PDFAuthenticationFailureException e) {
+            throw e;
+        } catch (Throwable e) {
+            e.printStackTrace();
+            mGraphView.showText("Exception: " + e.getMessage());
+        }
+        //long stopTime = System.currentTimeMillis();
+        //mGraphView.fileMillis = stopTime-startTime;
+        return null;
+    }
+
+    public PDFFile openAndReturnFile(File file, String password) throws IOException {
+        // first open the file for random access
+        RandomAccessFile raf = new RandomAccessFile(file, "r");
+
+        // extract a file channel
+        FileChannel channel = raf.getChannel();
+
+        // now memory-map a byte-buffer
+        ByteBuffer bb =
+                ByteBuffer.NEW(channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size()));
+        // create a PDFFile from the data
+        if (password == null)
+            return new PDFFile(bb);
+        else
+            return new PDFFile(bb, new PDFPassword(password));
+
+        //mGraphView.showText("Anzahl Seiten:" + mPdfFile.getNumPages());
+    }
+
 
     /**
      * <p>Open a specific pdf file.  Creates a DocumentInfo from the file,
@@ -1054,6 +1158,21 @@ public abstract class PdfViewerActivity extends Activity {
             mPdfFile = new PDFFile(bb, new PDFPassword(password));
 
         mGraphView.showText("Anzahl Seiten:" + mPdfFile.getNumPages());
+    }
+
+    /**
+     * Set the pdf currently being viewed to the one specified by i.
+     * @param i The index of the pdf file within the array of pdf files
+     */
+    private void changePdf(int i){
+        if(i >= 0 && i < pdfs.length){
+            mPdfFile = pdfs[i].getPdfFile();
+            curPdf = i;
+            mPage = 1;
+            changedPdf = true;
+            progress = ProgressDialog.show(PdfViewerActivity.this, "Loading", "Loading PDF Page " + mPage, true, true);
+            startRenderThread(mPage, mZoom);
+        }
     }
 
 
@@ -1125,6 +1244,7 @@ public abstract class PdfViewerActivity extends Activity {
     public abstract int getNextPageImageResource(); // R.drawable.right_arrow
     public abstract int getZoomInImageResource(); // R.drawable.zoom_int
     public abstract int getZoomOutImageResource(); // R.drawable.zoom_out
+    public abstract int getBackgroundImageResource(); // R.drawable.(whatever is the background)
 
     public abstract int getPdfPasswordLayoutResource(); // R.layout.pdf_file_password
     public abstract int getPdfPageNumberResource(); // R.layout.dialog_pagenumber

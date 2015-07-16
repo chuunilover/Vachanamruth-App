@@ -37,23 +37,40 @@ public class MainActivity extends AppCompatActivity /*ListActivity*/ {
             @Override
         public void run(){
                 File vachFile = new File(getFilesDir(), "vachanamrut.pdf");
+                File gujVachFile = new File(getFilesDir(), "vachanamrut_guj.pdf");
                 try {
                     //Make file if it doesn't exist
                     count = 0;
+                    if(!gujVachFile.exists()){
+                        gujVachFile.createNewFile();
+                        AssetManager assetManager = getAssets();
+                        InputStream is = assetManager.open("Vachanamrut.pdf");
+                        FileOutputStream fos = new FileOutputStream(gujVachFile);
+                        int i;
+                        byte[] buffer = new byte[512];
+                        while((i = is.read(buffer, 0, 512)) >= 0){
+                            fos.write(buffer, 0, i);
+                            count+=i;
+                            handler.sendEmptyMessage(0);
+                        }
+                    }
                     if(!vachFile.exists()) {
                         vachFile.createNewFile();
                         AssetManager assetManager = getAssets();
                         InputStream is = assetManager.open("vachanamrut-4.pdf");
                         FileOutputStream fos = new FileOutputStream(vachFile);
                         int i;
-                        byte[] buffer = new byte[2048];
-                        while((i = is.read(buffer, 0, 2048)) >= 0){
+                        byte[] buffer = new byte[512];
+                        while((i = is.read(buffer, 0, 512)) >= 0){
                             fos.write(buffer, 0, i);
                             count+=i;
                             handler.sendEmptyMessage(0);
                         }
                     }
-                    openPdfIntent(vachFile.getAbsolutePath());
+                    handler.sendEmptyMessage(0);
+                    String[] pdfNames = {vachFile.getAbsolutePath(), gujVachFile.getAbsolutePath()};
+                    openMultiPdfIntent(pdfNames);
+                    //openPdfIntent(vachFile.getAbsolutePath());
                     finish();
                 }
                 catch(IOException e){
@@ -66,13 +83,16 @@ public class MainActivity extends AppCompatActivity /*ListActivity*/ {
                 loadProgress.setProgress((int)count);
             }
         };
+        //check if the vachanamrut.pdf has already been created
+        /*
         File vachFile = new File(getFilesDir(), "vachanamrut.pdf");
         if(vachFile.exists()){
             openPdfIntent(vachFile.getAbsolutePath());
             finish();
-        }
+        }*/
         //Make the Vachanamrut PDF file after the loading screen has been created
-        handler.postDelayed(runMakeFile, 150);
+        getSupportActionBar().hide();
+        handler.postDelayed(runMakeFile, 1000);
     }
 
     /*
@@ -84,14 +104,31 @@ public class MainActivity extends AppCompatActivity /*ListActivity*/ {
         openPdfIntent(path);
     }*/
 
+    private void openMultiPdfIntent(String[] paths){
+        try{
+            if(paths.length == 0){
+                return;
+            }
+            final Intent intent = new Intent(MainActivity.this, PDFReaderActivity.class);
+            int i = 0;
+            intent.putExtra(PdfViewerActivity.EXTRA_MULTIPDF, "TRUE");
+            for (i = 0; i < paths.length; i++) {
+                intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, paths);
+            }
+            startActivity(intent);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     private void openPdfIntent(String path)
     {
         try
         {
             final Intent intent = new Intent(MainActivity.this, PDFReaderActivity.class);
-
+            intent.putExtra(PdfViewerActivity.EXTRA_MULTIPDF, "FALSE");
             intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, path);
-
             startActivity(intent);
         }
         catch (Exception e)

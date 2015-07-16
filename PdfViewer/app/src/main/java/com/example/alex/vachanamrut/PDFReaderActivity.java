@@ -51,4 +51,6 @@ public class PDFReaderActivity extends PdfViewerActivity
     public int getPdfPageNumberEditField() {
         return R.id.pagenum_edit;
     }
+
+    public int getBackgroundImageResource() {return R.drawable.doc;}
 }
